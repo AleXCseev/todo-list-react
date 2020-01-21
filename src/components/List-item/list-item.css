@@ -1,0 +1,9 @@
+.important {
+	color: #6c5ce7;
+	font-weight: bold;
+}
+
+.done {
+	text-decoration: line-through;
+	opacity: 0.5;
+}
