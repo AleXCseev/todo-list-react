@@ -16,7 +16,7 @@ export default class App extends Component {
 				id: "2",
 				title: "Learn Redux",
 				important: false,
-				isDone: true,
+				isDone: false,
 			},
 			{
 				id: "3",
@@ -59,10 +59,11 @@ export default class App extends Component {
 		const { todos } = this.state;
 
 		const findEl = todos.findIndex((item) => item.id === id);
-		const newState = todos.splice(findEl, 1);
+		const newState = [...todos.slice(0, findEl), ...todos.slice(findEl + 1)];
+		console.log(newState);
 
 		this.setState({
-			newState,
+			todos: newState,
 		});
 	};
 
