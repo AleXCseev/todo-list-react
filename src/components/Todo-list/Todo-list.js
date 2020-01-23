@@ -3,6 +3,10 @@ import React, { Component } from "react";
 import ListItem from "../List-item/List-item";
 
 export default class TodoList extends Component {
+	state = {
+		label: "",
+	};
+
 	renderItems = () => {
 		const { todos, onImportant, onDone, onDelete } = this.props;
 		const list = todos.map((item) => {
@@ -21,11 +25,30 @@ export default class TodoList extends Component {
 		});
 		return list;
 	};
+
+	onLabelChange = (e) => {
+		this.setState({
+			label: e.target.value,
+		});
+	};
+
+	onSubmit = (e) => {
+		e.preventDefault();
+		this.props.onItemAdded(this.state.label);
+		this.setState({
+			label: "",
+		});
+	};
+
 	render() {
 		return (
 			<div className="mt-4 col-12">
-				<form className="m-2 d-flex">
-					<input className="mr-1 form-control"></input>
+				<form className="m-2 d-flex" onSubmit={this.onSubmit}>
+					<input
+						className="mr-1 form-control"
+						onChange={this.onLabelChange}
+						value={this.state.label}
+					></input>
 					<button className="btn btn-light">Добавить</button>
 				</form>
 				<div>

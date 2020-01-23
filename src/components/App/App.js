@@ -57,14 +57,31 @@ export default class App extends Component {
 
 	onDelete = (id) => {
 		const { todos } = this.state;
-
 		const findEl = todos.findIndex((item) => item.id === id);
 		const newState = [...todos.slice(0, findEl), ...todos.slice(findEl + 1)];
-		console.log(newState);
 
 		this.setState({
 			todos: newState,
 		});
+	};
+
+	onItemAdded = (item) => {
+		const { todos } = this.state;
+		const newItem = {
+			id: Date.now().toString(),
+			title: item,
+			important: false,
+			isDone: false,
+		};
+		const newState = [...todos, newItem];
+		const findEl = todos.findIndex((el) => el.title.toLowerCase() === item.toLowerCase());
+		if (findEl === -1) {
+			this.setState({
+				todos: newState,
+			});
+		} else {
+			console.log("дубликат задачи");
+		}
 	};
 
 	render() {
@@ -78,6 +95,7 @@ export default class App extends Component {
 						onImportant={this.onImportant}
 						onDone={this.onDone}
 						onDelete={this.onDelete}
+						onItemAdded={this.onItemAdded}
 					></TodoList>
 				</div>
 			</div>
