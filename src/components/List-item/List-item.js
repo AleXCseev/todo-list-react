@@ -1,5 +1,4 @@
 import React from "react";
-
 import "./list-item.css";
 
 const ListItem = ({ todo, onImportant, onDone, onDelete }) => {

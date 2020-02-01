@@ -1,60 +1,47 @@
 import React, { Component } from "react";
-
 import ListItem from "../List-item/List-item";
+import { connect } from "react-redux";
+import { important, done, del } from "../../actions";
 
-export default class TodoList extends Component {
+class TodoList extends Component {
 	state = {
-		label: "",
-	};
-
-	renderItems = () => {
-		const { todos, onImportant, onDone, onDelete } = this.props;
-		const list = todos.map((item) => {
-			const { id, ...itemProps } = item;
-
-			return (
-				<li className="list-group-item" key={id}>
-					<ListItem
-						todo={itemProps}
-						onImportant={() => onImportant(id)}
-						onDone={() => onDone(id)}
-						onDelete={() => onDelete(id)}
-					></ListItem>
-				</li>
-			);
-		});
-		return list;
-	};
-
-	onLabelChange = (e) => {
-		this.setState({
-			label: e.target.value,
-		});
-	};
-
-	onSubmit = (e) => {
-		e.preventDefault();
-		this.props.onItemAdded(this.state.label);
-		this.setState({
-			label: "",
-		});
+		todo: this.props,
 	};
 
 	render() {
+		const { todos, onImportant, onDelete, onDone } = this.props;
 		return (
-			<div className="mt-4 col-12">
-				<form className="m-2 d-flex" onSubmit={this.onSubmit}>
-					<input
-						className="mr-1 form-control"
-						onChange={this.onLabelChange}
-						value={this.state.label}
-					></input>
-					<button className="btn btn-light">Добавить</button>
-				</form>
-				<div>
-					<ul className="list-group">{this.renderItems()}</ul>
-				</div>
-			</div>
+			<ul className="list-group">
+				{todos.map((item) => {
+					const { id, ...itemProps } = item;
+					return (
+						<li className="list-group-item" key={id}>
+							<ListItem
+								todo={itemProps}
+								onImportant={() => onImportant(id)}
+								onDone={() => onDone(id)}
+								onDelete={() => onDelete(id)}
+							></ListItem>
+						</li>
+					);
+				})}
+			</ul>
 		);
 	}
 }
+
+const mapStateToProps = (state) => {
+	return {
+		todos: state.todos,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onImportant: (id) => dispatch(important(id)),
+		onDone: (id) => dispatch(done(id)),
+		onDelete: (id) => dispatch(del(id)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
