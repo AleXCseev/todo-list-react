@@ -2,7 +2,7 @@ import React from "react";
 import "./list-item.css";
 
 const ListItem = ({ todo, onImportant, onDone, onDelete }) => {
-	let style = "w-75 align-self-center font-weight-bold";
+	let style = "h5 w-75 align-self-center font-weight-bold";
 
 	if (todo.important) {
 		style += " important";
@@ -14,14 +14,14 @@ const ListItem = ({ todo, onImportant, onDone, onDelete }) => {
 
 	return (
 		<div className="d-flex justify-content-arround">
-			<span className={style}>{todo.title}</span>
-			<button className="ml-1 btn btn-dark" onClick={onImportant}>
+			<p className={style}>{todo.title}</p>
+			<button className="ml-1 btn btn-outline-dark" onClick={onImportant}>
 				Важное
 			</button>
-			<button className="ml-1 btn btn-dark" onClick={onDone}>
+			<button className="ml-1 btn btn-outline-dark" onClick={onDone}>
 				Выполнено
 			</button>
-			<button className="ml-1 btn btn-dark" onClick={onDelete}>
+			<button className="ml-1 btn btn-outline-dark" onClick={onDelete}>
 				Удалить
 			</button>
 		</div>

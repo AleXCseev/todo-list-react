@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import TodoList from "../Todo-list/Todo-list";
 import { add } from "../../actions";
 
-//
-
 class TodoControl extends Component {
 	state = {
 		label: "",
@@ -42,11 +40,10 @@ class TodoControl extends Component {
 						onChange={this.onLabelChange}
 						value={this.state.label}
 					></input>
-					<button className="btn btn-light">Добавить</button>
+					<button className="btn btn-dark">Добавить</button>
 				</form>
-				<div>
-					<TodoList></TodoList>
-				</div>
+				<TodoList></TodoList>
+				<hr></hr>
 			</div>
 		);
 	}

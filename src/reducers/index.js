@@ -42,14 +42,14 @@ const reducer = (state = initialState, action) => {
 				todos: delTodo,
 			};
 		case "IMPORTANT_TODO":
-			const newState = state.todos.map((item) => {
+			const importantTodo = state.todos.map((item) => {
 				if (item.id === action.payload) {
 					item.important = !item.important;
 				}
 				return item;
 			});
 			return {
-				todos: newState,
+				todos: importantTodo,
 			};
 		case "DONE_TODO":
 			const doneTodo = state.todos.map((item) => {

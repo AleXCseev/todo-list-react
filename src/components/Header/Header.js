@@ -1,7 +1,7 @@
 import React from "react";
 
 const Header = () => {
-	return <h1>Todo list</h1>;
+	return <p className="display-1">Todo list</p>;
 };
 
 export default Header;
