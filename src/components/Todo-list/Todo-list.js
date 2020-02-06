@@ -4,36 +4,35 @@ import { connect } from "react-redux";
 import { important, done, del } from "../../actions";
 
 class TodoList extends Component {
-	state = {
-		todo: this.props,
+	renderTodoList = () => {
+		const { onImportant, onDelete, onDone, todos } = this.props;
+		if (todos) {
+			const list = todos.map((item) => {
+				const { id, ...itemProps } = item;
+				return (
+					<li className="list-group-item" key={id}>
+						<ListItem
+							todo={itemProps}
+							onImportant={() => onImportant(id)}
+							onDone={() => onDone(id)}
+							onDelete={() => onDelete(id)}
+						></ListItem>
+					</li>
+				);
+			});
+			return list;
+		}
 	};
 
 	render() {
-		const { todos, onImportant, onDelete, onDone } = this.props;
-		return (
-			<ul className="list-group">
-				{todos.map((item) => {
-					const { id, ...itemProps } = item;
-					return (
-						<li className="list-group-item" key={id}>
-							<ListItem
-								todo={itemProps}
-								onImportant={() => onImportant(id)}
-								onDone={() => onDone(id)}
-								onDelete={() => onDelete(id)}
-							></ListItem>
-						</li>
-					);
-				})}
-			</ul>
-		);
+		return <ul className="list-group">{this.renderTodoList()}</ul>;
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
-		todos: state.todos,
-	};
+		todos: state.todos.todos
+	}
 };
 
 const mapDispatchToProps = (dispatch) => {
